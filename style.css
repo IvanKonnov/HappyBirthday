@@ -1,0 +1,313 @@
+:root {
+    --bg-deep: #0a0a1a;
+    --gold: #ffb82e;
+    --card-bg: rgba(15, 15, 35, 0.65);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-deep);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+    cursor: default;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 650px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+/* Карточка ввода */
+.input-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 215, 160, 0.35);
+    border-radius: 80px;
+    padding: 10px 10px 10px 28px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 180, 50, 0.25);
+    transition: all 0.3s ease;
+    width: fit-content;
+    max-width: 95%;
+}
+
+.input-card:focus-within {
+    border-color: #ffbb2e;
+    box-shadow: 0 0 45px #ffb82eaa, 0 20px 40px black;
+}
+
+.input-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #e0d7ff;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    font-size: 1rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.input-label span {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 8px gold);
+}
+
+#nameInput {
+    background: rgba(20, 20, 40, 0.7);
+    border: 1px solid rgba(255, 220, 120, 0.7);
+    border-radius: 50px;
+    padding: 14px 22px;
+    color: #fff3cf;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    width: 170px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+#nameInput::placeholder {
+    color: #9a9ac0;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+#nameInput:focus {
+    width: 200px;
+    border-color: #ffbb2e;
+    box-shadow: 0 0 28px #ffb82e, inset 0 0 10px #ffbb2e55;
+    background: rgba(30, 25, 50, 0.8);
+}
+
+/* Звезда */
+.star-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem 0;
+}
+
+.magic-star {
+    cursor: pointer;
+    font-size: clamp(5.5rem, 15vw, 8rem);
+    background: none;
+    border: none;
+    filter: drop-shadow(0 0 18px #7f8cc9);
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.15, 1.2);
+    color: #adb9e8;
+    text-shadow: 0 0 15px #3d4680;
+    line-height: 1;
+    position: relative;
+    z-index: 15;
+    animation: gentleFloat 3.2s infinite ease-in-out;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.magic-star.lit {
+    color: #ffe28c;
+    text-shadow: 0 0 70px #ffaa00, 0 0 120px #ff8c00;
+    filter: drop-shadow(0 0 60px #ffbb2e);
+    animation: floatStrong 2.5s infinite ease-in-out, pulseGlow 1.6s infinite alternate;
+}
+
+@keyframes gentleFloat {
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-12px) scale(1.02);
+    }
+}
+
+@keyframes floatStrong {
+    0%,
+    100% {
+        transform: translateY(0px) scale(1.05);
+    }
+    50% {
+        transform: translateY(-14px) scale(1.08);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        filter: drop-shadow(0 0 50px #ffbb2e);
+        text-shadow: 0 0 65px #ffaa00, 0 0 100px #ff7700;
+    }
+    100% {
+        filter: drop-shadow(0 0 85px #ffae00);
+        text-shadow: 0 0 90px #ffbb2e, 0 0 140px #ff8800;
+    }
+}
+
+.orbit-ring {
+    position: absolute;
+    border: 1.5px dashed rgba(255, 215, 100, 0.4);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.orbit-ring.show {
+    opacity: 1;
+    animation: rotateOrbit 18s linear infinite;
+}
+
+.ring1 {
+    width: 180px;
+    height: 180px;
+    border-color: rgba(255, 200, 80, 0.5);
+    animation-duration: 22s;
+}
+
+.ring2 {
+    width: 240px;
+    height: 240px;
+    border-color: rgba(180, 180, 255, 0.4);
+    animation-duration: 28s;
+    animation-direction: reverse;
+}
+
+.ring3 {
+    width: 300px;
+    height: 300px;
+    border-color: rgba(255, 215, 180, 0.35);
+    animation-duration: 34s;
+}
+
+@keyframes rotateOrbit {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Поздравление */
+.greeting-card {
+    background: rgba(8, 8, 28, 0.7);
+    backdrop-filter: blur(35px);
+    border: 1px solid rgba(255, 220, 140, 0.5);
+    border-radius: 70px;
+    padding: 20px 35px;
+    text-align: center;
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 50px rgba(255, 170, 20, 0.35);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    width: fit-content;
+    max-width: 95%;
+}
+
+.greeting-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.greeting-text {
+    font-size: clamp(1.3rem, 5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.5;
+    background: linear-gradient(135deg, #ffe7b3, #ffbf5e, #ffd68a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 12px black);
+    letter-spacing: 0.6px;
+    margin: 0;
+}
+
+.highlight-name {
+    background: linear-gradient(180deg, #fff5cf, #ffb82e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    font-size: 1.1em;
+    text-shadow: 0 0 20px #ffaa00;
+    display: inline-block;
+}
+
+.sub-message {
+    color: #d9cfef;
+    margin-top: 12px;
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.9;
+    letter-spacing: 0.4px;
+    font-style: italic;
+}
+
+.restart-note {
+    color: #aba9dc;
+    margin-top: 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.6px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .input-card {
+        padding: 8px 8px 8px 18px;
+        gap: 8px;
+        border-radius: 60px;
+    }
+    #nameInput {
+        width: 130px;
+        padding: 12px 16px;
+        font-size: 1.1rem;
+    }
+    .greeting-card {
+        padding: 18px 24px;
+        border-radius: 50px;
+    }
+    .orbit-ring {
+        display: none;
+    }
+}

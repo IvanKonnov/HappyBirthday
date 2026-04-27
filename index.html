@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🌟 С Днём Рождения! Волшебная Вселенная</title>
+
+    <!-- Подключаем CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Фоновый холст для частиц -->
+    <canvas id="backgroundCanvas"></canvas>
+
+    <!-- Основной контейнер -->
+    <div class="container">
+        <!-- Ввод имени -->
+        <div class="input-card">
+            <label class="input-label" for="nameInput">
+                <span>✨</span> Именинник
+            </label>
+            <input type="text" id="nameInput" placeholder="Введи имя" maxlength="35" autocomplete="off" enterkeyhint="done">
+        </div>
+
+        <!-- Звезда с орбитами -->
+        <div class="star-wrapper" id="starWrapper">
+            <span class="orbit-ring ring1" id="ring1"></span>
+            <span class="orbit-ring ring2" id="ring2"></span>
+            <span class="orbit-ring ring3" id="ring3"></span>
+            <button class="magic-star" id="magicStar" aria-label="Зажги звезду">&#10025;</button>
+        </div>
+
+        <!-- Поздравление -->
+        <div class="greeting-card" id="greetingCard">
+            <p class="greeting-text" id="greetingText"></p>
+            <p class="sub-message" id="subMessage"></p>
+        </div>
+        <p class="restart-note" id="restartHint"></p>
+    </div>
+
+    <!-- Подключаем JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
